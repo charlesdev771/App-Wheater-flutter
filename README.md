@@ -1,4 +1,4 @@
-# app
+# Wheater app
 
 A new Flutter project.
 
