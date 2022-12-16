@@ -1,3 +1,4 @@
+import 'package:app/model/wheater_model.dart';
 import 'package:app/services/wheater_api_client.dart';
 import 'package:app/views/aditional_info.dart';
 import 'package:app/views/current_wheater.dart';
@@ -28,9 +29,18 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
+
+const temp = 273;
+
 class _HomePageState extends State<HomePage> {
 
 WheaterApiClient client = WheaterApiClient();
+Wheater? data;
+
+
+Future<void> getData() async{
+data = await client.getCurrentWheaten("Natal");
+}
 
 @override
   void initState() {
@@ -43,24 +53,32 @@ WheaterApiClient client = WheaterApiClient();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple,
       appBar: AppBar(
-        backgroundColor: Color(0xFFf9f9f9),
+        backgroundColor: Color.fromARGB(255, 78, 0, 88),
         elevation: 0.0,
         title: const Text(
-          "Wheater",
-          style: TextStyle(color: Colors.black),
+          "My Wheater",
+          style: TextStyle(color: Color.fromARGB(255, 180, 180, 180)),
         ),
         centerTitle: true,
         leading: IconButton(
           onPressed: () {},
           icon: Icon(Icons.menu),
-          color: Colors.black,
+          color: Color.fromARGB(255, 46, 46, 46),
         ),
       ),
-      body: Column(
+      body: FutureBuilder(
+        future: getData(),
+        builder: (context, snapshot)
+        {
+          if(snapshot.connectionState == ConnectionState.done)
+          {
+            return Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          currentWeather(Icons.wb_sunny_rounded, "30.7", "Natal"),
+          currentWeather(Icons.wb_sunny_rounded, "${data!.temp}K", 
+          "${data!.cityName}"),
           SizedBox(
             height: 60.0,
           ),
@@ -68,7 +86,7 @@ WheaterApiClient client = WheaterApiClient();
             "Informations: ",
             style: TextStyle(
               fontSize: 24.0,
-              color: Color(0xdd212121),
+              color: Color.fromARGB(221, 244, 65, 250),
               fontWeight: FontWeight.bold,
             ),
             ),
@@ -76,9 +94,13 @@ WheaterApiClient client = WheaterApiClient();
             SizedBox(
               height: 20.0,
             ),
-            additionalInformation("25", "2", "1000", "24.6"),
+            additionalInformation("${data!.wind}", "${data!.humidity}", "${data!.pressure}", "${data!.feels_like}"),
         ],
-      ),
+      );
+          }
+          return Container();
+        }
+      )
     );
   }
 }
