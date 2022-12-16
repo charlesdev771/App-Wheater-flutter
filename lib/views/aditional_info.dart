@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 
 TextStyle titleFont = const TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
 
+TextStyle infoFont =
+    const TextStyle(fontWeight: FontWeight.w600, fontSize: 18.0);
 
 Widget additionalInformation(
   String wind, String humidity, String pressure, String feels_like)
@@ -24,12 +26,12 @@ Widget additionalInformation(
           children: [
             Text(
               "Wind",
-          style: titleFont,
+          style: infoFont,
         ),
         SizedBox(height: 18),
         Text(
           "Pressure", 
-          style: titleFont,
+          style: infoFont,
         ),
       ],
     ),
@@ -46,6 +48,36 @@ Widget additionalInformation(
                 Text(
                   "$pressure",
                   style: titleFont,
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Humidity",
+                  style: infoFont,
+                ),
+                SizedBox(height: 18),
+                Text(
+                  "Feels like",
+                  style: infoFont,
+                ),
+              ],
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "$humidity",
+                  style: infoFont,
+                ),
+                SizedBox(height: 18),
+                Text(
+                  "$feels_like",
+                  style: infoFont,
                 ),
               ],
             ),

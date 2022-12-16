@@ -1,3 +1,4 @@
+import 'package:app/services/wheater_api_client.dart';
 import 'package:app/views/aditional_info.dart';
 import 'package:app/views/current_wheater.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+WheaterApiClient client = WheaterApiClient();
+
+@override
+  void initState() {
+    
+    client.getCurrentWheaten("Georgia");
+    super.initState();
+
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
